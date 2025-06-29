@@ -7,8 +7,6 @@ namespace MentalHealthCompanion.API.ApplicationExtension
     {
         public static IServiceCollection AddApplicationVersioning(this IServiceCollection services)
         {
-            //services.ConfigureOptions<SwaggerConfig>();
-
             services.AddApiVersioning(options =>
             {
                 options.DefaultApiVersion = ApiVersion.Default;

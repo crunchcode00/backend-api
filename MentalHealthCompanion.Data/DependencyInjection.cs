@@ -6,8 +6,6 @@ namespace MentalHealthCompanion.Data
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            // Register background services here
-            // Example: services.AddHostedService<MyBackgroundService>();
             return services;
         }
     }

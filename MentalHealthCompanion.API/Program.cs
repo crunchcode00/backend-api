@@ -1,4 +1,8 @@
 using MentalHealthCompanion.API.ApplicationExtension;
+using MentalHealthCompanion.Data;
+using MentalHealthCompanion.Data.DataContext;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text.Json.Serialization;
 
@@ -12,6 +16,15 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
         {
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Disable camelCase naming policy
         });
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
+
+});
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -25,6 +38,7 @@ builder.Host.UseSerilog((context, config) =>
 });
 
 var app = builder.Build();
+await app.SeedDatabaseAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -2,7 +2,6 @@
 using MentalHealthCompanion.Data.Enums;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MentalHealthCompanion.Data.DataContext
@@ -19,7 +18,7 @@ namespace MentalHealthCompanion.Data.DataContext
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
 
-            var adminRoleName = UserRole.Admin.ToString();
+            var adminRoleName = UserRole.SuperAdmin.ToString();
 
             if (!await roleManager.RoleExistsAsync(adminRoleName))
             {
@@ -54,9 +53,6 @@ namespace MentalHealthCompanion.Data.DataContext
             {
                 identityUser = existingUser;
             }
-
-            //IdentityUser identityUser = new IdentityUser() { Email = "D.abudu@conclaseint.com" };
-            //AppUser adminUser = new AppUser();
 
             if (!dbContext.AppUsers.Any(u => u.Id == identityUser.Id))
             {

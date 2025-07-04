@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MentalHealthCompanion.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250702150023_initial")]
-    partial class initial
+    [Migration("20250703131633_initial Migration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

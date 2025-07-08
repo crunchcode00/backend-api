@@ -84,7 +84,8 @@ namespace MentalHealthCompanion.Data.Services
                 //create identity user record
                 IdentityUser identityUser = new()
                 {
-                    Email = model.EmailAddress
+                    Email = model.EmailAddress,
+                    UserName = model.EmailAddress
                 };
 
                 var addIdentityUser = await _userManager.CreateAsync(identityUser);

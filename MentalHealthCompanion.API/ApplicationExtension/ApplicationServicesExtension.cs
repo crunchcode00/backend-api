@@ -46,40 +46,6 @@ namespace MentalHealthCompanion.API.ApplicationExtension
                 });
             #endregion
 
-            //services.AddAuthentication(option =>
-            //{
-            //    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(option =>
-            //{
-            //    option.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JwtOptions:SigningKey"]!)),
-            //        ValidateIssuer = true,
-            //        ValidIssuer = config["JwtOptions:Issuer"]!,
-            //        ValidateAudience = true,
-            //        ValidAudience = config["JwtOptions:Audience"]!,
-            //        RequireExpirationTime = true,
-            //        ValidateLifetime = true,
-            //        RoleClaimType = ClaimTypes.Role,
-            //    };
-
-            //    option.Events = new JwtBearerEvents
-            //    {
-            //        OnAuthenticationFailed = context =>
-            //        {
-            //            Console.WriteLine(" Token validation failed: " + context.Exception.Message);
-            //            return Task.CompletedTask;
-            //        },
-            //        OnTokenValidated = context =>
-            //        {
-            //            Console.WriteLine(" Token successfully validated.");
-            //            return Task.CompletedTask;
-            //        }
-            //    };
-            //});
             #region Authentication
             services.AddAuthorization(option =>
             {

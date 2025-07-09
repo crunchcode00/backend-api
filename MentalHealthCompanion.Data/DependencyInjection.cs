@@ -17,18 +17,6 @@ namespace MentalHealthCompanion.Data
             services.AddScoped<IAuthenService, AuthenService>();
             services.AddScoped<IJwtService, JwtService>();
             services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.Section));
-            //var secretKey = "YourSuperSecretKeyHere";
-            //var key = Encoding.UTF8.GetBytes(secretKey);
-
-            //TokenValidationParameters tokenValidationParameters = new()
-            //{
-            //    ValidateIssuerSigningKey = true,
-            //    IssuerSigningKey = new SymmetricSecurityKey(key),
-            //    ValidateIssuer = false,
-            //    ValidateAudience = false,
-            //    RequireExpirationTime = true,
-            //    ValidateLifetime = true
-            //};
             return services;
         }
 

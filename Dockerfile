@@ -12,4 +12,4 @@ ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
 # Run the app
-CMD ["dotnet", "out/ConclaseAcademy.Api.dll"]
+CMD ["dotnet", "out/MentalHealthCompanion.API.dll"]

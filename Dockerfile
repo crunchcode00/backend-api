@@ -13,6 +13,11 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 ENV ASPNETCORE_URLS="http://+:80"
 EXPOSE 80
 
+<<<<<<< HEAD
 # Apply migrations with Release configuration
 ENTRYPOINT ["sh", "-c", "dotnet ef database update --project MentalHealthCompanion.API --configuration Release && dotnet out/MentalHealthCompanion.API.dll"]
 
+=======
+# Run the app
+CMD ["dotnet", "out/MentalHealthCompanion.API.dll"]
+>>>>>>> refs/remotes/origin/main

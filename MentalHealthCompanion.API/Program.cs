@@ -21,6 +21,16 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options =>
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()); // Disable camelCase naming policy
         });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("EnabledCORS",
+        options => {
+            options
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddDataServices(builder.Configuration);
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -120,7 +130,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("EnabledCORS");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -3,6 +3,7 @@ using MentalHealthCompanion.Data.Enums;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace MentalHealthCompanion.Data.DataContext
 {
@@ -10,6 +11,8 @@ namespace MentalHealthCompanion.Data.DataContext
     {
         public static async Task SeedAsync(this WebApplication app)
         {
+            var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+            var logger = loggerFactory.CreateLogger("DbSeeder");
 
             using var scope = app.Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -21,6 +24,7 @@ namespace MentalHealthCompanion.Data.DataContext
             var superAdminRoleName = UserRole.SuperAdmin.ToString();
             var adminRoleName = UserRole.Admin.ToString();
             var regularUserRoleName = UserRole.RegularUser.ToString();
+
             if (!await roleManager.RoleExistsAsync(regularUserRoleName))
             { 
                 await roleManager.CreateAsync(new IdentityRole(regularUserRoleName));
@@ -41,6 +45,7 @@ namespace MentalHealthCompanion.Data.DataContext
             IdentityUser identityUser;
             if (existingUser == null)
             {
+                logger.LogInformation("Creating super admin identity...");
                 identityUser = new IdentityUser
                 {
                     UserName = "superadmin",
@@ -61,7 +66,8 @@ namespace MentalHealthCompanion.Data.DataContext
                 identityUser = existingUser;
             }
 
-            if (!dbContext.AppUsers.Any(u => u.Id == identityUser.Id))
+            logger.LogInformation("Checking if super admin user exists...");
+            if (dbContext.AppUsers.Any(u => u.EmailAddress == identityUser.Email) is false)
             {
                 var adminUser = new AppUser
                 {
@@ -72,7 +78,13 @@ namespace MentalHealthCompanion.Data.DataContext
                     Role = superAdminRoleName
                 };
                 dbContext.AppUsers.Add(adminUser);
+
                 await dbContext.SaveChangesAsync();
+                logger.LogInformation("data seeded successfully.");
+            }
+            else
+            {
+                logger.LogInformation("Super admin user already exists, skipping seeding.");
             }
         }
     }

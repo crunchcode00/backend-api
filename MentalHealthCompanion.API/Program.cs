@@ -122,6 +122,11 @@ builder.Host.UseSerilog((context, config) =>
 });
 
 var app = builder.Build();
+
+// Applying database migrations
+await MigrationExtension.AutoMigrationAsync(app);
+
+// Seed the database with initial data
 await app.SeedDatabaseAsync();
 
 // Configure the HTTP request pipeline.
